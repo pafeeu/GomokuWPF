@@ -1,0 +1,78 @@
+﻿<Window x:Class="GomokuWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GomokuWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!--<Menu>
+            <MenuItem Header="test"/>
+        </Menu>-->
+
+        <WrapPanel Visibility="Hidden" Name="LoginPanel" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <StackPanel Margin="10">
+            <Label Content="Logowanie"/>
+            <WrapPanel>
+                <Label Content="Login" Width="50"/>
+                <TextBox Name="llogin" TextWrapping="Wrap" Text="string2" Width="120" HorizontalAlignment="Left"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Hasło" Width="50"/>
+                <PasswordBox Name="lpassword" Width="120" Password="Password123$" HorizontalAlignment="Left"/>
+            </WrapPanel>
+            <Button Content="Zaloguj" Width="170" HorizontalAlignment="Left" Click="Login_Click"/>
+            </StackPanel>
+            
+            <StackPanel Margin="10">
+            <Label Content="Rejestracja"/>
+            <WrapPanel>
+                <Label Content="Login" Width="50"/>
+                <TextBox Name="rlogin" TextWrapping="Wrap" Text="" Width="120" HorizontalAlignment="Left"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Email" Width="50"/>
+                <TextBox  Name="remail" Width="120" HorizontalAlignment="Left"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Hasło" Width="50"/>
+                <PasswordBox Name="rpassword" Width="120" HorizontalAlignment="Left"/>
+            </WrapPanel>
+            <Button Content="Zarejestruj" Width="170" HorizontalAlignment="Left" Click="Register_Click"/>
+            </StackPanel>
+        </WrapPanel>
+
+        <Grid Visibility="Visible" Name="HomePanel" Width="600" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="5">
+                <Label Content="Wszystkie gry" HorizontalAlignment="Center"/>
+                <ListView Name="AllGames" MouseDoubleClick="AllGames_DoubleClick"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="5">
+                <Label Content="Moje gry" HorizontalAlignment="Center"/>
+                <ListView Name="MyGames" MouseDoubleClick="MyGames_DoubleClick"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Margin="5">
+                <Label Content="Utwórz grę" HorizontalAlignment="Center"/>
+                <Button Content="Utwórz" HorizontalAlignment="Stretch" Click="CreateGame_Click"/>
+                <Label Content="Możesz wyszukać i wybrać gracza:" HorizontalAlignment="Center"/>
+                <TextBox Name="search_player" TextWrapping="Wrap" Text="string4" HorizontalAlignment="Stretch"/>
+                <ListView Name="PlayersList" SelectionChanged="PlayersList_SelectionChanged"/>
+            </StackPanel>
+
+        </Grid>
+        
+        <ScrollViewer Width="200" HorizontalAlignment="Right">
+        <TextBlock Name="log" HorizontalAlignment="Right" TextWrapping="Wrap" Text=""/>
+        </ScrollViewer>
+
+    </Grid>
+</Window>
