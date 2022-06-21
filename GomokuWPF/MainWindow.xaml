@@ -5,74 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GomokuWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <!--<Menu>
-            <MenuItem Header="test"/>
-        </Menu>-->
-
-        <WrapPanel Visibility="Hidden" Name="LoginPanel" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-            <StackPanel Margin="10">
-            <Label Content="Logowanie"/>
-            <WrapPanel>
-                <Label Content="Login" Width="50"/>
-                <TextBox Name="llogin" TextWrapping="Wrap" Text="string2" Width="120" HorizontalAlignment="Left"/>
-            </WrapPanel>
-            <WrapPanel>
-                <Label Content="Hasło" Width="50"/>
-                <PasswordBox Name="lpassword" Width="120" Password="Password123$" HorizontalAlignment="Left"/>
-            </WrapPanel>
-            <Button Content="Zaloguj" Width="170" HorizontalAlignment="Left" Click="Login_Click"/>
-            </StackPanel>
+        Title="MainWindow" Height="460" Width="600">
+    <StackPanel>
+        <Menu Height="20">
+            <MenuItem Name="MenuBack" Header="Cofnij" Click="Back_Click"/>
+            <MenuItem Name="MenuCloseGame" Header="Zakończ grę" Click="CloseGame_Click"/>
+            <MenuItem Name="MenuLogout" Header="Wyloguj" Click="Logout_Click"/>
+            <MenuItem Name="MenuInfo" Header="Informacje" Click="Info_Click"/>
+        </Menu>
+        <Grid Height="400">
+            <WrapPanel Visibility="Visible" Name="LoginPanel" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <StackPanel Margin="10">
+                <Label Content="Logowanie"/>
+                <WrapPanel>
+                    <Label Content="Login" Width="50"/>
+                    <TextBox Name="llogin" TextWrapping="Wrap" Text="string2" Width="120" HorizontalAlignment="Left"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Hasło" Width="50"/>
+                    <PasswordBox Name="lpassword" Width="120" Password="Password123$" HorizontalAlignment="Left"/>
+                </WrapPanel>
+                <Button Content="Zaloguj" Name="lsubmit" HorizontalAlignment="Stretch" Click="Login_Click"/>
+                </StackPanel>
             
-            <StackPanel Margin="10">
-            <Label Content="Rejestracja"/>
-            <WrapPanel>
-                <Label Content="Login" Width="50"/>
-                <TextBox Name="rlogin" TextWrapping="Wrap" Text="" Width="120" HorizontalAlignment="Left"/>
+                <StackPanel Margin="10">
+                <Label Content="Rejestracja"/>
+                <WrapPanel>
+                    <Label Content="Login" Width="50"/>
+                    <TextBox Name="rlogin" TextWrapping="Wrap" Text="" Width="120" HorizontalAlignment="Left"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Email" Width="50"/>
+                    <TextBox  Name="remail" Width="120" HorizontalAlignment="Left"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Hasło" Width="50"/>
+                    <PasswordBox Name="rpassword" Width="120" HorizontalAlignment="Left"/>
+                </WrapPanel>
+                    <Button Content="Zarejestruj" Name="rsubmit"  HorizontalAlignment="Stretch" Click="Register_Click"/>
+                </StackPanel>
             </WrapPanel>
-            <WrapPanel>
-                <Label Content="Email" Width="50"/>
-                <TextBox  Name="remail" Width="120" HorizontalAlignment="Left"/>
+
+            <Grid Visibility="Hidden" Name="HomePanel" Width="430" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="5">
+                    <Label Content="Inne gry" HorizontalAlignment="Center"/>
+                    <ListView Name="AllGames" MouseDoubleClick="AllGames_DoubleClick"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="5">
+                    <Label Content="Moje gry" HorizontalAlignment="Center"/>
+                    <ListView Name="MyGames" MouseDoubleClick="MyGames_DoubleClick"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="5">
+                    <Label Content="Utwórz grę" HorizontalAlignment="Center"/>
+                    <Button Content="Utwórz" HorizontalAlignment="Stretch" Click="CreateGame_Click"/>
+                    <Label Content="" HorizontalAlignment="Center"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Możesz wyszukać i wybrać gracza: (W 'inne gry' zobaczysz jego gry, natomiast tworząc nową go zaprosisz)"/>
+                    <TextBox Name="search_player" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch"/>
+                    <ListView Name="PlayersList" SelectionChanged="PlayersList_SelectionChanged"/>
+                </StackPanel>
+
+            </Grid>
+
+            <WrapPanel Visibility="Visible" Name="GamePanel" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <StackPanel Name="Board"></StackPanel>
+                <!--<TextBlock Name="tempGameInfo" Text=""/>-->
             </WrapPanel>
-            <WrapPanel>
-                <Label Content="Hasło" Width="50"/>
-                <PasswordBox Name="rpassword" Width="120" HorizontalAlignment="Left"/>
-            </WrapPanel>
-            <Button Content="Zarejestruj" Width="170" HorizontalAlignment="Left" Click="Register_Click"/>
-            </StackPanel>
-        </WrapPanel>
 
-        <Grid Visibility="Visible" Name="HomePanel" Width="600" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <ScrollViewer Width="150" Height ="400" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+                <TextBlock Name="log" TextAlignment="Left" TextWrapping="Wrap" Text=""/>
 
-            <StackPanel Grid.Column="0" Margin="5">
-                <Label Content="Wszystkie gry" HorizontalAlignment="Center"/>
-                <ListView Name="AllGames" MouseDoubleClick="AllGames_DoubleClick"/>
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Margin="5">
-                <Label Content="Moje gry" HorizontalAlignment="Center"/>
-                <ListView Name="MyGames" MouseDoubleClick="MyGames_DoubleClick"/>
-            </StackPanel>
-
-            <StackPanel Grid.Column="2" Margin="5">
-                <Label Content="Utwórz grę" HorizontalAlignment="Center"/>
-                <Button Content="Utwórz" HorizontalAlignment="Stretch" Click="CreateGame_Click"/>
-                <Label Content="Możesz wyszukać i wybrać gracza:" HorizontalAlignment="Center"/>
-                <TextBox Name="search_player" TextWrapping="Wrap" Text="string4" HorizontalAlignment="Stretch"/>
-                <ListView Name="PlayersList" SelectionChanged="PlayersList_SelectionChanged"/>
-            </StackPanel>
-
+            </ScrollViewer>
         </Grid>
-        
-        <ScrollViewer Width="200" HorizontalAlignment="Right">
-        <TextBlock Name="log" HorizontalAlignment="Right" TextWrapping="Wrap" Text=""/>
-        </ScrollViewer>
-
-    </Grid>
+    </StackPanel>
 </Window>

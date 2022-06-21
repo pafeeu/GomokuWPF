@@ -3,27 +3,43 @@ using System.Collections.Generic;
 
 namespace GomokuWPF.API.Responses
 {
-    public record GameDetailsResponse
+    public class GameDetailsResponse
     {
-        public long Id { get; init; }
-        public short StatusId { get; init; }
-        public string Status { get; init; }
-        public List<Player> Players { get; init; }
-        public List<Move> Moves { get; init; }
-        public record Move
+        public long Id { get; set; }
+        public short StatusId { get; set; }
+        public string Status { get; set; }
+        public List<Player> Players { get; set; }
+        public List<Move> Moves { get; set; }
+        public class Move
         {
-            public long PlayerId { get; init; }
-            public short X { get; init; }
-            public short Y { get; init; }
-            public DateTime Time { get; init; }
+            public long PlayerId { get; set; }
+            public short X { get; set; }
+            public short Y { get; set; }
+            public DateTime Time { get; set; }
+            public override string ToString()
+            {
+                return $"Gracz ({PlayerId}) zrobił ruch na ({X}, {Y})";
+            }
+            public bool Equals(Move move)
+            {
+                return this.X == move.X && this.Y == move.Y && this.PlayerId == move.PlayerId;
+            }
         }
-        public record Player
+        public class Player
         {
-            public long Id { get; init; }
-            public long PlayerId { get; init; }
-            public string Username { get; init; }
-            public short RoleId { get; init; }
-            public string Role { get; init; }
+            public long Id { get; set; }
+            public long PlayerId { get; set; }
+            public string Username { get; set; }
+            public short RoleId { get; set; }
+            public string Role { get; set; }
+            public override string ToString()
+            {
+                return $"Gracz '{Username}' ({PlayerId}) {Role}";
+            }
+        }
+        public override string ToString()
+        {
+            return $"Gra {Id}: '{Status}', gracze: \n\t{string.Join("\n\t",Players)}, \nruchy: \n\t{string.Join("\n\t", Moves)}";
         }
     }
 }

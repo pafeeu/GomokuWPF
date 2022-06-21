@@ -118,10 +118,9 @@ namespace GomokuWPF.API
         public async Task<long?> MakeMove(long gameId, short x, short y)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
-            query.Set("gameId", gameId.ToString());
             query.Set("x", x.ToString());
             query.Set("y", y.ToString());
-            var response = await client.PostAsync(UriMoves + "?" + query.ToString(), null);
+            var response = await client.PostAsync(UriMoves + "/" + gameId.ToString() + "/make-at?" + query.ToString(), null);
             if (await IsSuccess(response))
             {
                 var info = JsonConvert.DeserializeObject<ObjectCreatedResponse>(await response.Content.ReadAsStringAsync());
@@ -150,11 +149,20 @@ namespace GomokuWPF.API
         {
             if(!response.IsSuccessStatusCode)
             {
-                string errorMessage = response.ReasonPhrase??"";
+                var message = "";
                 dynamic content = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
-                if(content != null)
-                    errorMessage += ": " + content.message +" "+ content.title;
-                Logs.Add(errorMessage);
+                if (content is not null)
+                {
+                    var temp = (string?)content.message;
+                    if (!string.IsNullOrEmpty(temp))
+                        message += temp + " ";
+                    temp = (string?)content.title;
+                    if (!string.IsNullOrEmpty(temp))
+                        message += temp + " ";
+                }
+                else
+                    message = response.ReasonPhrase ?? "";
+                Logs.Add(message);
                 return false;
             }
             return true;
