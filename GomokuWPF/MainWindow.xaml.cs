@@ -48,7 +48,11 @@ namespace GomokuWPF
         {
             WaitCursor();
             this.view = view;
-            gameController = null;
+            if(gameController is not null)
+            {
+                gameController.TemporaryEnd = true;
+                gameController = null;
+            }
             LoginPanel.Visibility = Visibility.Hidden;
             HomePanel.Visibility = Visibility.Hidden;
             GamePanel.Visibility = Visibility.Hidden;

@@ -22,6 +22,7 @@ namespace GomokuWPF
         private char MySymbol, OtherSymbol;
         private MainWindow Window;
 
+        public bool TemporaryEnd = false;
         private bool TemporaryPause = false;
         private bool Redrawing = false;
 
@@ -102,7 +103,6 @@ namespace GomokuWPF
                 MainWindow.ResetCursor();
                 return;
             }
-            //MessageBox.Show($"click at {coords.x}, {coords.y}");
             if (!await MakeMove(coords))
             {
                 //maybe game is closed
@@ -116,7 +116,6 @@ namespace GomokuWPF
                     Log($"something goes wrong while click at {coords.x}, {coords.y}");
 
             }
-                //MessageBox.Show($"something goes wrong while click at {coords.x}, {coords.y}");
 
             MainWindow.ResetCursor();
         }
@@ -180,7 +179,7 @@ namespace GomokuWPF
         }
         private async void AskForNewMoves()
         {
-            while (GameInfo.StatusId!=10)
+            while (GameInfo.StatusId!=10 && !TemporaryEnd)
             {
                 await Task.Delay(1000);
                 if (TemporaryPause)

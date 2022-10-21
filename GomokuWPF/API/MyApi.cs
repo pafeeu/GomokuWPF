@@ -171,9 +171,5 @@ namespace GomokuWPF.API
         {
             return new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
         }
-        private async static Task<object> Deserialize(HttpResponseMessage response)
-        {
-            return JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
-        }
     }
 }

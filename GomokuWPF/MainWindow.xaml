@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GomokuWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="460" Width="600">
+        Title="Gra Gomoku" Height="460" Width="600">
     <StackPanel>
         <Menu Height="20">
             <MenuItem Name="MenuBack" Header="Cofnij" Click="Back_Click"/>
